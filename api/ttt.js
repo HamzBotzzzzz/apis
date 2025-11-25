@@ -1,4 +1,4 @@
-import { getGame, saveGame, getAllGames, cleanupOldGames } from '/lib/ttt-db.js';
+import gistDB from '/lib/gist-db.js';
 
 function createGame() {
   const gameId = Math.random().toString(36).slice(2, 10);
@@ -35,8 +35,8 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    await cleanupOldGames();
-    const games = await getAllGames();
+    await gistDB.cleanupOldGames();
+    const games = await gistDB.getAllGames();
     
     let game = findWaitingGame(games);
     if (!game) {
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
     }
 
     game.lastActivity = Date.now();
-    await saveGame(game);
+    await gistDB.saveGame(game);
 
     const response = {
       success: true,
