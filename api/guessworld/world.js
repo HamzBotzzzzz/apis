@@ -1,4 +1,4 @@
-import data from "./list.json" assert { type: "json" };
+import data from "./list.json" with { type: "json" };
 
 // GET /api/guessworld/world
 // Return satu negara random: { negara, petunjuk }
