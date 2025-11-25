@@ -59,6 +59,8 @@ export default function handler(req, res) {
     return res.status(404).json({ error: "Game tidak ditemukan" });
   }
 
+  game.lastActivity = Date.now();
+
   if (game.status === "finished") {
     return res.status(400).json({ 
       error: "Game sudah selesai",
