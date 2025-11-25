@@ -12,41 +12,6 @@ function formatBoardForDisplay(board) {
   return displayBoard;
 }
 
-export default function handler(req, res) {
-  res.setHeader("Content-Type", "application/json");
-
-  if (req.method !== "GET") {
-    return res
-      .status(405)
-      .json({ error: "Method not allowed. Use GET." });
-  }
-
-  const { gameId } = req.query;
-  
-  if (!gameId) {
-    return res.status(400).json({ 
-      error: "Parameter gameId diperlukan" 
-    });
-  }
-
-  const game = games.get(gameId);
-  if (!game) {
-    return res.status(404).json({ error: "Game tidak ditemukan" });
-  }
-
-  const winner = checkWinner(game.board);
-  
-  return res.status(200).json({
-    gameId: game.id,
-    board: formatBoardForDisplay(game.board),
-    nextTurn: game.nextTurn,
-    winner: winner,
-    status: game.status,
-    players: game.players,
-    message: getStatusMessage(game, winner)
-  });
-}
-
 function checkWinner(board) {
   const lines = [
     [0,1,2], [3,4,5], [6,7,8],
@@ -72,4 +37,40 @@ function getStatusMessage(game, winner) {
     return "Menunggu player kedua...";
   }
   return `Giliran Player ${game.nextTurn}`;
+}
+
+export default function handler(req, res) {
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.method !== "GET") {
+    return res
+      .status(405)
+      .json({ error: "Method not allowed. Use GET." });
+  }
+
+  const { gameId } = req.query;
+  
+  if (!gameId) {
+    return res.status(400).json({ 
+      error: "Parameter gameId diperlukan" 
+    });
+  }
+
+  const game = games.get(gameId);
+  if (!game) {
+    return res.status(404).json({ error: "Game tidak ditemukan" });
+  }
+
+  game.lastActivity = Date.now();
+  const winner = checkWinner(game.board);
+  
+  return res.status(200).json({
+    gameId: game.id,
+    board: formatBoardForDisplay(game.board),
+    nextTurn: game.nextTurn,
+    winner: winner,
+    status: game.status,
+    players: game.players,
+    message: getStatusMessage(game, winner)
+  });
 }
