@@ -1,6 +1,4 @@
-// Get game status - FIX PERSISTENCE
-let games = global.tttGames || new Map();
-global.tttGames = games;
+import { getGame, cleanupOldGames } from '/lib/ttt-db.js';
 
 function formatBoardForDisplay(board) {
   return board.map((cell, index) => cell === null ? (index + 1).toString() : cell);
@@ -20,7 +18,7 @@ function checkWinner(board) {
   return null;
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -29,6 +27,7 @@ export default function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
+    await cleanupOldGames();
     const { gameId } = req.query;
     
     if (!gameId) {
@@ -36,9 +35,8 @@ export default function handler(req, res) {
     }
 
     console.log(`📊 STATUS request: ${gameId}`);
-    console.log(`📊 Available games: ${Array.from(games.keys()).join(', ') || 'NONE'}`);
 
-    const game = games.get(gameId);
+    const game = await getGame(gameId);
     if (!game) {
       return res.status(404).json({ error: "Game tidak ditemukan" });
     }
