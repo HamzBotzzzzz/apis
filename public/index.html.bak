@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>./Ilham</title>
+    <meta name="description" content="Debugging my way through life.">
+    <meta name="keywords" content="portfolio, developer, design">
+    <meta property="og:title" content="SavantLabs" />
+    <meta property="og:description" content="Debugging my way through life." />
+    <meta property="og:type" content="website" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/src/icon.jpg" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header dengan tombol toggle -->
+    <header>
+        <button class="toggle-btn" id="toggleSidebar" aria-label="Toggle Sidebar">&#9776;</button>
+        <h1 style="margin:0; font-size:1.2em; font-family: 'Inter', sans-serif;">./ilhammm</h1>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">./Ilhamm</div>
+        <nav>
+            <a href="#portfolio" class="active" data-content="portfolio">Portfolio</a>
+            <a href="#gameapi" data-content="gameapi">Game API</a>
+            <a href="#apidocs" data-content="apidocs">API Docs</a>
+            <a href="#credit" data-content="credit">Credit</a>
+        </nav>
+    </aside>
+
+    <!-- Konten utama -->
+    <main class="content" id="mainContent">
+        <!-- Konten Portfolio (Default) -->
+        <div class="portfolio-content" id="portfolioContent">
+            <div class="container-fluid d-flex align-items-center justify-content-center min-vh-100 bg-white">
+                <div class="profile-card">
+                    <div class="profile-info">
+                        <div class="avatar-frame">
+                            <img src="https://files.catbox.moe/aw9849.jpg" alt="Profile" class="avatar">
+                        </div>
+                        <div class="profile-header">
+                            <h1 class="display-name">ilhamm</h1>
+                            <span class="verified-mark">
+                                <i class="fas fa-check-circle"></i>
+                            </span>
+                        </div>
+                        <p class="profile-tagline">i’m not a bug, i’m the undocumented feature that keeps everything running while everyone else pretends to understand
+                        </p>
+                    </div>
+
+                    <div class="links-container">
+                        <a href="https://t.me/kinkilham" class="social-link">
+                            <i class="fab fa-telegram link-emoji"></i> Telegram Channel
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VbB8tc25kg79Es3JEm3" class="social-link">
+                            <i class="fab fa-whatsapp link-emoji"></i> WhatsApp Channel
+                        </a>
+                        <a href="https://github.com/" class="social-link">
+                            <i class="fab fa-github link-emoji"></i> Github Project
+                        </a>
+                        <a href="/donasi" class="social-link">
+                            <i class="fas fa-heart link-emoji"></i> Support Me
+                        </a>
+                    </div>
+
+                    <div class="music-section">
+                        <div class="custom-player">
+                            <div class="now-playing">
+                                <div class="track-info">
+                                    <img src="" alt="Track Artwork" class="track-artwork" id="trackArtwork">
+                                    <div class="track-text">
+                                        <div class="track-name" id="currentTrack"></div>
+                                        <div class="track-artist" id="currentArtist"></div>
+                                    </div>
+                                </div>
+                                <div class="player-controls">
+                                    <button class="control-btn" id="prevBtn">
+                                        <i class="fas fa-step-backward"></i>
+                                    </button>
+                                    <button class="control-btn play-pause" id="playPauseBtn">
+                                        <i class="fas fa-play" id="playIcon"></i>
+                                    </button>
+                                    <button class="control-btn" id="nextBtn">
+                                        <i class="fas fa-step-forward"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progressBar">
+                                    <div class="progress" id="progress"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span id="currentTime">0:00</span>
+                                    <span id="duration">0:00</span>
+                                </div>
+                            </div>
+                            <div class="playlist">
+                                <div class="playlist-header">
+                                    <span>Playlist</span>
+                                    <span id="playlistCount">0 tracks</span>
+                                </div>
+                                <div class="track-list" id="trackList"></div>
+                            </div>
+                        </div>
+                        <p class="inspiration-text">ilhamm.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Game API -->
+        <div class="api-content" id="gameapiContent">
+            <section id="home">
+                <h1>Game API — Simple & Vercel Ready</h1>
+                <p>API sederhana untuk permainan TicTacToe multiplayer dan tebakan (negara, kata, lirik). Dirancang memakai API Routes yang bisa langsung dideploy ke Vercel.</p>
+                
+                <h2>🎮 Features</h2>
+                <ul>
+                    <li><strong>TicTacToe Multiplayer</strong> - Real-time game dengan sistem turn-based</li>
+                    <li><strong>Guess World</strong> - Tebak negara berdasarkan petunjuk</li>
+                    <li><strong>Guess Word</strong> - Game tebak kata sederhana</li>
+                    <li><strong>Guess Lyric</strong> - Tebak lirik lagu</li>
+                </ul>
+
+                <h2>🚀 Quick Start</h2>
+                <p>Deploy dengan satu klik ke Vercel:</p>
+                <pre><code>// Clone repository
+git clone https://github.com/svnnlabs/game-api
+cd game-api
+vercel deploy</code></pre>
+            </section>
+        </div>
+
+                <!-- Konten API Docs -->
+        <div class="api-content" id="apidocsContent">
+            <section id="docs">
+                <h1>API Documentation</h1>
+                <p>Detailed documentation for all available endpoints with bot implementation examples.</p>
+
+                <h2>📋 Base URL & Headers</h2>
+                <pre><code>Base URL: https://your-domain.vercel.app/api
+Content-Type: application/json</code></pre>
+
+                <h2>🎮 TicTacToe (Multiplayer)</h2>
+                <p><strong>POST</strong> <code>/api/ttt</code> — Create or join game</p>
+                <pre><code>{
+  "gameId": "abc123",
+  "player": "X",
+  "board": [null,null,null,null,null,null,null,null,null],
+  "nextTurn": "X"
+}</code></pre>
+
+                <p><strong>POST</strong> <code>/api/ttt/move</code> — Submit move</p>
+                <pre><code>// Request body:
+{
+  "gameId": "abc123",
+  "player": "X",
+  "index": 0
+}
+
+// Response:
+{
+  "board": ["X",null,null,null,null,null,null,null,null],
+  "nextTurn": "O",
+  "winner": null
+}</code></pre>
+
+                <h2>🌍 Guess World</h2>
+                <p><strong>GET</strong> <code>/api/guessworld/world</code></p>
+                <pre><code>{
+  "negara": "Indonesia",
+  "petunjuk": [
+    "Negara kepulauan terbesar",
+    "Memiliki Pulau Jawa",
+    "Bahasa resmi: Indonesia"
+  ]
+}</code></pre>
+
+                <h2>🔤 Guess Word</h2>
+                <p><strong>GET</strong> <code>/api/guessword/word</code></p>
+                <pre><code>{ "kata": "komputer" }</code></pre>
+
+                <h2>🎵 Guess Lyric</h2>
+                <p><strong>GET</strong> <code>/api/guesslyric/lyric</code></p>
+                <pre><code>{
+  "potongan": "kau begitu sempurna di mataku...",
+  "jawaban": "Sempurna - Andra and The Backbone"
+}</code></pre>
+
+                <h2>🤖 Bot Implementation</h2>
+
+                <h3>Telegram Bot (Python)</h3>
+                <pre><code>import requests
+import telebot
+
+API_BASE = "https://your-domain.vercel.app/api"
+bot = telebot.TeleBot("YOUR_BOT_TOKEN")
+
+@bot.message_handler(commands=['ttt'])
+def tictactoe_start(message):
+    # Create new game
+    response = requests.post(f"{API_BASE}/ttt", json={
+        "gameId": str(message.chat.id),
+        "player": "X"
+    })
+    game_data = response.json()
+    
+    # Format board for display
+    board = "🎮 TicTacToe Game\n\n"
+    for i in range(0, 9, 3):
+        row = []
+        for j in range(3):
+            cell = game_data['board'][i+j]
+            row.append(cell if cell else "⬜")
+        board += " ".join(row) + "\n"
+    
+    board += f"\nNext turn: {game_data['nextTurn']}"
+    bot.send_message(message.chat.id, board)
+
+@bot.message_handler(commands=['guessworld'])
+def guess_world(message):
+    response = requests.get(f"{API_BASE}/guessworld/world")
+    data = response.json()
+    
+    clues = "\n".join([f"🔹 {clue}" for clue in data['petunjuk']])
+    bot.send_message(message.chat.id, 
+        f"🌍 Guess the Country!\n\n{clues}\n\nReply with your answer!")
+
+@bot.message_handler(commands=['guessword'])
+def guess_word(message):
+    response = requests.get(f"{API_BASE}/guessword/word")
+    data = response.json()
+    
+    bot.send_message(message.chat.id,
+        f"🔤 Guess the Word!\n\nWord: {'_' * len(data['kata'])}\n\nReply with your guess!")
+
+bot.polling()</code></pre>
+
+                <h3>WhatsApp Bot (Node.js - using baileys)</h3>
+                <pre><code>const { default: makeWASocket, useMultiFileAuthState } = require('@whiskeysockets/baileys')
+const axios = require('axios')
+
+const API_BASE = 'https://your-domain.vercel.app/api'
+
+async function connectToWhatsApp() {
+    const { state, saveCreds } = await useMultiFileAuthState('./auth_info')
+    const sock = makeWASocket({
+        printQRInTerminal: true,
+        auth: state
+    })
+    
+    sock.ev.on('connection.update', (update) => {
+        const { connection, lastDisconnect } = update
+        if (connection === 'close') {
+            connectToWhatsApp()
+        }
+    })
+    
+    sock.ev.on('creds.update', saveCreds)
+    
+    sock.ev.on('messages.upsert', async ({ messages }) => {
+        const msg = messages[0]
+        if (!msg.message) return
+        
+        const text = msg.message.conversation || 
+                    msg.message.extendedTextMessage?.text || ''
+        const jid = msg.key.remoteJid
+        
+        // TicTacToe command
+        if (text === '!ttt') {
+            try {
+                const response = await axios.post(`${API_BASE}/ttt`, {
+                    gameId: jid,
+                    player: 'X'
+                })
+                
+                const game = response.data
+                let board = '🎮 TicTacToe Game\\n\\n'
+                for (let i = 0; i < 9; i += 3) {
+                    const row = game.board.slice(i, i + 3)
+                    .map(cell => cell ? cell : '⬜')
+                    board += row.join(' ') + '\\n'
+                }
+                board += `\\nNext turn: ${game.nextTurn}`
+                
+                await sock.sendMessage(jid, { text: board })
+            } catch (error) {
+                await sock.sendMessage(jid, { text: 'Error starting game' })
+            }
+        }
+        
+        // Guess World command
+        if (text === '!guessworld') {
+            try {
+                const response = await axios.get(`${API_BASE}/guessworld/world`)
+                const data = response.data
+                
+                const clues = data.petunjuk.map(clue => `🔹 ${clue}`).join('\\n')
+                const message = `🌍 Guess the Country!\\n\\n${clues}\\n\\nReply with your answer!`
+                
+                await sock.sendMessage(jid, { text: message })
+            } catch (error) {
+                await sock.sendMessage(jid, { text: 'Error getting question' })
+            }
+        }
+        
+        // Guess Word command
+        if (text === '!guessword') {
+            try {
+                const response = await axios.get(`${API_BASE}/guessword/word`)
+                const data = response.data
+                
+                const message = `🔤 Guess the Word!\\n\\nWord: ${'_'.repeat(data.kata.length)}\\n\\nReply with your guess!`
+                
+                await sock.sendMessage(jid, { text: message })
+            } catch (error) {
+                await sock.sendMessage(jid, { text: 'Error getting word' })
+            }
+        }
+    })
+}
+
+connectToWhatsApp()</code></pre>
+
+                <h2>🔧 Requirements & Setup</h2>
+                
+                <h3>Dependencies Needed:</h3>
+                <pre><code># Telegram Bot (Python)
+pip install pyTelegramBotAPI requests
+
+# WhatsApp Bot (Node.js)
+npm install @whiskeysockets/baileys axios</code></pre>
+
+                <h3>Environment Variables:</h3>
+                <pre><code># Telegram Bot Token
+Get from @BotFather on Telegram
+
+# API Base URL
+API_BASE=https://your-domain.vercel.app/api</code></pre>
+
+                <h3>Deployment:</h3>
+                <pre><code># Deploy API to Vercel
+vercel --prod
+
+# Run bots (use services like Heroku, Railway, or your own server)
+python bot_telegram.py
+node bot_whatsapp.js</code></pre>
+
+                <h2>📱 Bot Commands Summary</h2>
+                <pre><code>Telegram:
+/ttt - Start TicTacToe game
+/guessworld - Guess the country game  
+/guessword - Guess the word game
+/guesslyric - Guess the lyric game
+
+WhatsApp:
+!ttt - Start TicTacToe game
+!guessworld - Guess the country game
+!guessword - Guess the word game
+!guesslyric - Guess the lyric game</code></pre>
+            </section>
+        </div>
+
+        <!-- Konten Credit -->
+        <div class="credit-content" id="creditContent">
+            <h1>Credit & License</h1>
+            
+            <div class="credit-text">
+                <p>Dibuat oleh Ilhammm</p>
+                <p>Project ini adalah hasil dari debugging yang tak berujung dan kopi yang tak terhitung jumlahnya.</p>
+            </div>
+
+            <div class="license-box">
+    <h3>📄 MIT License</h3>
+
+    <p>Copyright (c) 2025 ilhammm</p>
+
+    <p>
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+    </p>
+
+    <p>
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+    </p>
+
+    <p>
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+    </p>
+</div>
+
+<div class="signature">
+    <p>— Developed with clarity and shipped with intent.</p>
+</div>
+    </main>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+<script>
+    // Script untuk toggle sidebar dan navigasi konten
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const navLinks = document.querySelectorAll('.sidebar nav a');
+    const portfolioContent = document.getElementById('portfolioContent');
+    const gameapiContent = document.getElementById('gameapiContent');
+    const apidocsContent = document.getElementById('apidocsContent');
+    const creditContent = document.getElementById('creditContent');
+
+    // Toggle sidebar
+    toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('sidebar-open');
+        sidebar.classList.toggle('show');
+    });
+
+    // Navigasi konten
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+
+            // Sembunyikan semua konten
+            portfolioContent.style.display = 'none';
+            gameapiContent.style.display = 'none';
+            apidocsContent.style.display = 'none';
+            creditContent.style.display = 'none';
+
+            // Tampilkan sesuai pilihan
+            const contentType = link.getAttribute('data-content');
+            if (contentType === 'portfolio') {
+                portfolioContent.style.display = 'block';
+            } else if (contentType === 'gameapi') {
+                gameapiContent.style.display = 'block';
+            } else if (contentType === 'apidocs') {
+                apidocsContent.style.display = 'block';
+            } else if (contentType === 'credit') {
+                creditContent.style.display = 'block';
+            }
+
+            // Tutup sidebar di mobile
+            if (window.innerWidth <= 576) {
+                body.classList.remove('sidebar-open');
+                sidebar.classList.remove('show');
+            }
+        });
+    });
+
+    // SCRIPT MUSIC PLAYER DENGAN AUDIO UNLOCK SYSTEM
+    document.addEventListener('DOMContentLoaded', function () {
+        const animatedElements = document.querySelectorAll('.profile-info, .links-container, .music-section');
+
+        animatedElements.forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+                if (index === animatedElements.length - 1) {
+                    setTimeout(() => {
+                        initAudioUnlock();
+                    }, 300);
+                }
+            }, 200 + (index * 200));
+        });
+
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(0, 149, 246, 0.4);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    pointer-events: none;
+                `;
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const currentTime = document.getElementById('currentTime');
+        const duration = document.getElementById('duration');
+        const currentTrack = document.getElementById('currentTrack');
+        const currentArtist = document.getElementById('currentArtist');
+        const trackList = document.getElementById('trackList');
+        const playlistCount = document.getElementById('playlistCount');
+
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let playlist = [];
+        let audioUnlocked = false;
+
+        // Fungsi unlock audio
+        function initAudioUnlock() {
+            const unlockAudio = () => {
+                if (audioUnlocked) return;
+                audioPlayer.volume = 0;
+                audioPlayer.play().then(() => {
+                    audioPlayer.pause();
+                    audioPlayer.volume = 1;
+                    audioUnlocked = true;
+                    console.log("✅ Audio unlocked successfully!");
+                }).catch(() => {
+                    try {
+                        const AudioContext = window.AudioContext || window.webkitAudioContext;
+                        const ctx = new AudioContext();
+                        const oscillator = ctx.createOscillator();
+                        const gainNode = ctx.createGain();
+                        oscillator.connect(gainNode);
+                        gainNode.connect(ctx.destination);
+                        gainNode.gain.value = 0;
+                        oscillator.start();
+                        setTimeout(() => {
+                            oscillator.stop();
+                            audioUnlocked = true;
+                            console.log("✅ Audio unlocked via AudioContext!");
+                        }, 100);
+                    } catch (error) {
+                        console.log("❌ Audio unlock failed:", error);
+                    }
+                });
+            };
+            ['click', 'scroll', 'touchstart', 'mousemove', 'keydown'].forEach(event => {
+                document.addEventListener(event, () => {
+                    if (!audioUnlocked) {
+                        console.log(`🔓 Unlocking audio via ${event}...`);
+                        unlockAudio();
+                    }
+                }, { once: true });
+            });
+            setTimeout(() => {
+                if (!audioUnlocked) {
+                    console.log("🕒 Auto-unlock attempt...");
+                    initAudioUnlock();
+                }
+            }, 1000);
+        }
+
+        // Load playlist dan preload semua track
+        function loadSpotifyPlaylist() {
+            playlist = [
+                {
+                    name: "Kangen",
+                    artist: "Dewa 19",
+                    path: "https://files.catbox.moe/xj6uyb.mp3",
+                    image: "https://files.catbox.moe/yfjane.jpg"
+                },
+                {
+                    name: "Kangen",
+                    artist: "Dewa 19", 
+                    path: "https://files.catbox.moe/xj6uyb.mp3",
+                    image: "https://files.catbox.moe/yfjane.jpg"
+                }
+            ];
+            preloadAllTracks();
+            initializePlayer();
+        }
+
+        function preloadAllTracks() {
+            playlist.forEach((track) => {
+                const audio = new Audio();
+                audio.src = track.path;
+                audio.preload = 'auto';
+                audio.load();
+                track.audioElement = audio; // simpan sebagai cache
+            });
+        }
+
+        function initializePlayer() {
+            loadTrack(currentTrackIndex);
+        }
+
+        function loadTrack(index) {
+            const track = playlist[index];
+
+            // Pakai audio preload jika sudah ready
+            if (track.audioElement && track.audioElement.readyState >= 4) {
+                audioPlayer.src = track.audioElement.src;
+            } else {
+                // Kalau belum preload, pakai langsung dari path
+                audioPlayer.src = track.path;
+            }
+
+            currentTrack.textContent = track.name;
+            currentArtist.textContent = track.artist;
+
+            const trackArtwork = document.getElementById('trackArtwork');
+            if (track.image) {
+                trackArtwork.src = track.image;
+                trackArtwork.style.display = 'block';
+            } else {
+                trackArtwork.style.display = 'none';
+            }
+
+            updateTrackList();
+
+            // Update durasi saat metadata ready
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                duration.textContent = formatTime(audioPlayer.duration);
+            }, { once: true });
+        }
+
+        function updateTrackList() {
+            trackList.innerHTML = '';
+            playlist.forEach((track, index) => {
+                const trackItem = document.createElement('div');
+                trackItem.className = `track-item ${index === currentTrackIndex ? 'active' : ''}`;
+                trackItem.innerHTML = `
+                    <div class="track-item-number">${index + 1}</div>
+                    ${track.image ? `<img src="${track.image}" alt="${track.name}" class="track-artwork">` : '<div class="track-artwork placeholder"></div>'}
+                    <div class="track-item-info">
+                        <div class="track-item-name">${track.name}</div>
+                        <div class="track-item-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-item-duration" id="duration-${index}">--:--</div>
+                `;
+                trackItem.addEventListener('click', () => {
+                    currentTrackIndex = index;
+                    loadTrack(currentTrackIndex);
+                    playTrack();
+                });
+                trackList.appendChild(trackItem);
+                loadTrackDuration(track.path, index);
+            });
+            playlistCount.textContent = `${playlist.length} tracks`;
+        }
+
+        function loadTrackDuration(path, index) {
+            const audio = new Audio();
+            audio.src = path;
+            audio.addEventListener('loadedmetadata', () => {
+                const durationElement = document.getElementById(`duration-${index}`);
+                if (durationElement) {
+                    durationElement.textContent = formatTime(audio.duration);
+                }
+            });
+        }
+
+        function playTrack() {
+            if (!audioUnlocked) {
+                console.log("🔒 Audio not unlocked yet, attempting to unlock...");
+                initAudioUnlock();
+                setTimeout(() => {
+                    playTrack();
+                }, 100);
+                return;
+            }
+            // Jika preload sudah siap
+            if (playlist[currentTrackIndex].audioElement && playlist[currentTrackIndex].audioElement.readyState >= 4) {
+                audioPlayer.src = playlist[currentTrackIndex].audioElement.src;
+            } else {
+                audioPlayer.src = playlist[currentTrackIndex].path;
+            }
+
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                playIcon.className = 'fas fa-pause';
+                console.log("🎵 Now playing:", playlist[currentTrackIndex].name);
+            }).catch(error => {
+                console.log("❌ Play failed:", error);
+                // Coba unlock lagi jika gagal
+                audioUnlocked = false;
+                initAudioUnlock();
+                setTimeout(() => {
+                    audioPlayer.play().then(() => {
+                        isPlaying = true;
+                        playIcon.className = 'fas fa-pause';
+                    });
+                }, 500);
+            });
+        }
+
+        function pauseTrack() {
+            audioPlayer.pause();
+            isPlaying = false;
+            playIcon.className = 'fas fa-play';
+        }
+
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) {
+                setTimeout(() => {
+                    playTrack();
+                }, 100);
+            }
+        }
+
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) {
+                setTimeout(() => {
+                    playTrack();
+                }, 100);
+            }
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function updateProgress() {
+            if (audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progress.style.width = `${percent}%`;
+                currentTime.textContent = formatTime(audioPlayer.currentTime);
+            }
+        }
+
+        function setProgress(e) {
+            if (audioPlayer.duration) {
+                const width = this.clientWidth;
+                const clickX = e.offsetX;
+                audioPlayer.currentTime = (clickX / width) * audioPlayer.duration;
+            }
+        }
+
+        // Event listener tombol
+        document.getElementById('playPauseBtn').addEventListener('click', () => {
+            if (isPlaying) {
+                pauseTrack();
+            } else {
+                playTrack();
+            }
+        });
+        document.getElementById('prevBtn').addEventListener('click', prevTrack);
+        document.getElementById('nextBtn').addEventListener('click', nextTrack);
+        document.getElementById('progressBar').addEventListener('click', setProgress);
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+        audioPlayer.addEventListener('ended', nextTrack);
+
+        // Load playlist dan preload
+        loadSpotifyPlaylist();
+    });
+</script>
+
+</body>
+</html>

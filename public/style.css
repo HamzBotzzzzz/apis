@@ -1,0 +1,665 @@
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff !important;
+    color: #333;
+    font-family: 'Inter', 'Ubuntu Mono', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+/* Header dengan tombol toggle sidebar */
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+    color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    padding: 60px 20px 20px 20px;
+    display: none;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.sidebar.show {
+    display: block;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #0095f6;
+    font-family: 'Inter', sans-serif;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 10px 8px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+    font-family: 'Ubuntu Mono', monospace;
+}
+.sidebar nav a:hover {
+    background: #f8fafc;
+}
+
+.sidebar nav a.active {
+    background: #0095f6;
+    color: white;
+}
+
+/* Konten utama */
+.content {
+    margin-top: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-open .content {
+    margin-left: 220px;
+}
+
+/* STYLE ASLI SAVANTLABS */
+.profile-tagline, .inspiration-text, .social-link {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.display-name {
+    font-family: 'Inter', sans-serif;
+}
+
+.profile-card {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.profile-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.profile-info {
+    text-align: center;
+    padding: 35px 30px 25px;
+}
+
+.avatar-frame {
+    display: inline-block;
+    border-radius: 50%;
+    padding: 1.2px;
+    background: #0095f6;
+    margin-bottom: 20px;
+    border: 1.2px solid #0095f6;
+    position: relative;
+}
+
+.avatar-frame::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid #0095f6;
+    border-radius: 50%;
+    animation: status-pulse 2.5s infinite;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid white;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.display-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-right: 8px;
+    color: #1a202c;
+    letter-spacing: -0.5px;
+    line-height: 1;
+}
+
+.verified-mark {
+    color: #0095f6;
+    font-size: 1rem;
+    position: relative;
+    top: -5px;
+}
+
+.profile-tagline {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.links-container {
+    padding: 0 30px 20px;
+}
+
+.social-link {
+    display: block;
+    background: #f8fafc;
+    color: #4a5568;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 149, 246, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.social-link:hover::before {
+    left: 100%;
+}
+
+.social-link:hover {
+    background: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 149, 246, 0.15);
+    border-color: #0095f6;
+    color: #2d3748;
+}
+
+.link-emoji {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.music-section {
+    padding: 0 30px 30px;
+}
+
+.custom-player {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.now-playing {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.track-artwork {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 0;
+    background: #f8fafc;
+}
+
+.track-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.track-name {
+    font-weight: 600;
+    color: #1a202c;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-artist {
+    color: #718096;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+}
+
+.control-btn {
+    background: #000000;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.control-btn i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+}
+
+.control-btn:hover {
+    background: #333333;
+    transform: scale(1.05);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.play-pause {
+    width: 36px;
+    height: 36px;
+}
+
+.play-pause i {
+    font-size: 0.9rem;
+}
+
+.progress-container {
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+.progress {
+    height: 100%;
+    background: #0095f6;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #718096;
+}
+
+.playlist {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 12px;
+}
+
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.track-list {
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 0.8rem;
+    gap: 10px;
+}
+
+.track-item:hover {
+    background: rgba(0, 149, 246, 0.05);
+}
+
+.track-item.active {
+    background: rgba(0, 149, 246, 0.1);
+    color: #0095f6;
+}
+
+.track-item-number {
+    width: 20px;
+    color: #718096;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+.track-item .track-artwork {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 0;
+    background: #f8fafc;
+}
+
+.track-item .track-artwork.placeholder {
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    font-size: 0.6rem;
+}
+
+.track-item .track-artwork.placeholder::before {
+    content: "No Art";
+}
+
+.track-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.track-item-name {
+    font-weight: 500;
+    margin-bottom: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-item-artist {
+    font-size: 0.7rem;
+    color: #718096;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-item-duration {
+    font-size: 0.7rem;
+    color: #718096;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.inspiration-text {
+    text-align: center;
+    color: #a0aec0;
+    font-style: italic;
+    font-size: 0.85rem;
+    margin-top: 15px;
+    padding: 20px 15px 0;
+    line-height: 1.5;
+    border-top: 1px solid #e2e8f0;
+    font-weight: 400;
+}
+
+@keyframes status-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    70% {
+        transform: scale(1.08);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(1.08);
+        opacity: 0;
+    }
+}
+
+/* STYLE UNTUK API CONTENT */
+.api-content {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.api-content h1, .api-content h2, .api-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.api-content p {
+    color: #718096;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.api-content ul {
+    color: #718096;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.api-content code, .api-content pre {
+    background: #f8fafc;
+    color: #2d3748;
+    padding: 12px;
+    border-radius: 8px;
+    display: block;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    font-family: 'Ubuntu Mono', monospace;
+    border: 1px solid #e2e8f0;
+}
+
+.api-content section {
+    margin-bottom: 3rem;
+}
+
+.api-content h1 {
+    font-size: 2rem;
+    color: #1a202c;
+}
+
+.api-content h2 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.api-content h3 {
+    font-size: 1.2rem;
+    color: #4a5568;
+}
+
+/* STYLE UNTUK CREDIT CONTENT */
+.credit-content {
+    display: none;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.credit-content h1 {
+    font-size: 2rem;
+    color: #1a202c;
+    margin-bottom: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.credit-content .license-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.credit-content .license-box h3 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.credit-content .license-box p {
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.credit-content .credit-text {
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.credit-content .signature {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.credit-content .signature p {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+@media (max-width: 576px) {
+    .profile-card {
+        margin: 20px;
+        max-width: none;
+    }
+    
+    .profile-info {
+        padding: 30px 25px 20px;
+    }
+    
+    .links-container {
+        padding: 0 25px 15px;
+    }
+    
+    .music-section {
+        padding: 0 25px 25px;
+    }
+    
+    .social-link {
+        padding: 12px 20px;
+    }
+    
+    .now-playing {
+        gap: 10px;
+    }
+    
+    .track-info {
+        gap: 8px;
+    }
+    
+    .track-artwork {
+        width: 35px;
+        height: 35px;
+    }
+
+    body.sidebar-open .content {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+    
+    .content {
+        margin-top: 50px;
+        padding: 10px;
+    }
+}
+
+.container-fluid.bg-white {
+    background-color: #ffffff !important;
+    padding: 20px;
+}
