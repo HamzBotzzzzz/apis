@@ -1,4 +1,4 @@
-import data from "./list.json" assert { type: "json" };
+import data from "./list.json" with { type: "json" };
 
 // GET /api/guessword/word
 // Return random: { kata }
