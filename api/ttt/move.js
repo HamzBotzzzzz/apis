@@ -1,6 +1,4 @@
-// Submit move - FIX PERSISTENCE
-let games = global.tttGames || new Map();
-global.tttGames = games;
+import { getGame, saveGame } from '/lib/ttt-db.js';
 
 function checkWinner(board) {
   const lines = [
@@ -24,7 +22,7 @@ function formatBoardForDisplay(board) {
   return board.map((cell, index) => cell === null ? (index + 1).toString() : cell);
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -39,10 +37,9 @@ export default function handler(req, res) {
       return res.status(400).json({ error: "Payload tidak valid" });
     }
 
-    console.log(`🎯 MOVE request: game=${gameId}, player=${playerId}, pos=${position}`);
-    console.log(`📊 Available games: ${Array.from(games.keys()).join(', ') || 'NONE'}`);
+    console.log(`🎯 MOVE request: ${gameId}, player: ${playerId}, pos: ${position}`);
 
-    const game = games.get(gameId);
+    const game = await getGame(gameId);
     if (!game) {
       return res.status(404).json({ error: "Game tidak ditemukan" });
     }
@@ -57,7 +54,6 @@ export default function handler(req, res) {
       return res.status(400).json({ error: "Game belum dimulai" });
     }
 
-    // Validasi player
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
       return res.status(400).json({ error: "Player tidak terdaftar" });
@@ -78,12 +74,11 @@ export default function handler(req, res) {
 
     // APPLY MOVE
     game.board[index] = player.symbol;
-    console.log(`✅ MOVE applied: ${player.symbol} at ${position}`);
 
-    // Check winner
     const winner = checkWinner(game.board);
     if (winner) {
       game.status = "finished";
+      await saveGame(game);
       return res.status(200).json({
         success: true,
         board: formatBoardForDisplay(game.board),
@@ -94,9 +89,9 @@ export default function handler(req, res) {
       });
     }
 
-    // Check draw
     if (isDraw(game.board)) {
       game.status = "finished";
+      await saveGame(game);
       return res.status(200).json({
         success: true,
         board: formatBoardForDisplay(game.board),
@@ -107,8 +102,8 @@ export default function handler(req, res) {
       });
     }
 
-    // Next turn
     game.nextTurn = player.symbol === "X" ? "O" : "X";
+    await saveGame(game);
     
     return res.status(200).json({
       success: true,
