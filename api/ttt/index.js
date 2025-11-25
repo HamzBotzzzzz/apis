@@ -1,6 +1,6 @@
 // Create/join game (multiplayer)
 // POST /api/ttt
-// Response: { gameId, player, board, nextTurn, status }
+// Response: { gameId, player, board, nextTurn }
 
 const games = (globalThis.__TTT_GAMES__ = globalThis.__TTT_GAMES__ || new Map());
 
@@ -13,11 +13,12 @@ function createGame() {
     players: [], // [{ id, symbol: "X"|"O" }]
     nextTurn: "X",
     status: "waiting", // "waiting" | "ongoing" | "finished"
-    createdAt: Date.now()
+    createdAt: Date.now(),
+    lastActivity: Date.now()
   };
   games.set(gameId, game);
   
-  // Clean up old games (older than 1 hour)
+  // Clean up old games
   cleanupOldGames();
   
   return game;
@@ -38,11 +39,20 @@ function joinGame() {
   // Try to find a waiting game
   for (const game of games.values()) {
     if (game.status === "waiting" && game.players.length < 2) {
+      game.lastActivity = Date.now();
       return game;
     }
   }
   // Else create new
   return createGame();
+}
+
+function formatBoardForDisplay(board) {
+  const displayBoard = [];
+  for (let i = 0; i < 9; i++) {
+    displayBoard.push(board[i] === null ? (i + 1).toString() : board[i]);
+  }
+  return displayBoard;
 }
 
 export default function handler(req, res) {
@@ -51,7 +61,7 @@ export default function handler(req, res) {
   if (req.method !== "POST") {
     return res
       .status(405)
-      .end(JSON.stringify({ error: "Method not allowed. Use POST." }));
+      .json({ error: "Method not allowed. Use POST." });
   }
 
   try {
@@ -59,17 +69,23 @@ export default function handler(req, res) {
 
     let assignedSymbol = null;
     let playerId = null;
+    let isNewPlayer = false;
     
     if (game.players.length === 0) {
       assignedSymbol = "X";
       playerId = `p1_${Math.random().toString(36).slice(2, 6)}`;
       game.players.push({ id: playerId, symbol: "X" });
       game.status = "waiting";
+      isNewPlayer = true;
     } else if (game.players.length === 1) {
       assignedSymbol = "O";
       playerId = `p2_${Math.random().toString(36).slice(2, 6)}`;
       game.players.push({ id: playerId, symbol: "O" });
       game.status = "ongoing";
+      isNewPlayer = true;
+      
+      // Notify that game is ready to start (you can implement WebSocket here)
+      game.gameReady = true;
     } else {
       // If full, create another game and assign X
       const newGame = createGame();
@@ -80,7 +96,7 @@ export default function handler(req, res) {
         gameId: newGame.id,
         player: assignedSymbol,
         playerId: playerId,
-        board: newGame.board,
+        board: formatBoardForDisplay(newGame.board),
         nextTurn: newGame.nextTurn,
         status: newGame.status,
         message: "Bergabung sebagai Player 1 (X). Menunggu Player 2..."
@@ -94,6 +110,8 @@ export default function handler(req, res) {
       board: formatBoardForDisplay(game.board),
       nextTurn: game.nextTurn,
       status: game.status,
+      isNewPlayer: isNewPlayer,
+      players: game.players,
       message: game.players.length === 1 
         ? "Bergabung sebagai Player 1 (X). Menunggu Player 2..." 
         : "Game dimulai! Player 1 (X) jalan pertama."
@@ -102,13 +120,4 @@ export default function handler(req, res) {
     console.error("Error in join game:", e);
     return res.status(500).json({ error: "Internal server error" });
   }
-}
-
-// Format board untuk display yang lebih user-friendly
-function formatBoardForDisplay(board) {
-  const displayBoard = [];
-  for (let i = 0; i < 9; i++) {
-    displayBoard.push(board[i] === null ? (i + 1).toString() : board[i]);
-  }
-  return displayBoard;
 }
