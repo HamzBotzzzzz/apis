@@ -1,12 +1,10 @@
-// Join specific game - FIX PERSISTENCE
-let games = global.tttGames || new Map();
-global.tttGames = games;
+import { getGame, saveGame } from '/lib/ttt-db.js';
 
 function formatBoardForDisplay(board) {
   return board.map((cell, index) => cell === null ? (index + 1).toString() : cell);
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -22,9 +20,8 @@ export default function handler(req, res) {
     }
 
     console.log(`🔍 JOIN request: ${gameId}`);
-    console.log(`📊 Available games: ${Array.from(games.keys()).join(', ') || 'NONE'}`);
 
-    const game = games.get(gameId);
+    const game = await getGame(gameId);
     if (!game) {
       return res.status(404).json({ error: "Game tidak ditemukan" });
     }
@@ -37,11 +34,12 @@ export default function handler(req, res) {
       return res.status(400).json({ error: "Game sudah penuh" });
     }
 
-    // Join sebagai player 2
     const playerData = { symbol: "O", id: `p2_${Math.random().toString(36).slice(2, 6)}` };
     game.players.push(playerData);
     game.status = "ongoing";
     game.lastActivity = Date.now();
+
+    await saveGame(game);
 
     console.log(`✅ Player 2 JOINED: ${gameId}`);
 
