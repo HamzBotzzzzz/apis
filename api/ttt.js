@@ -1,28 +1,21 @@
-// Create/join game - FIX PERSISTENCE ISSUE
-let games = global.tttGames || new Map();
-global.tttGames = games;
+import { getGame, saveGame, getAllGames, cleanupOldGames } from '/lib/ttt-db.js';
 
 function createGame() {
   const gameId = Math.random().toString(36).slice(2, 10);
-  const board = Array(9).fill(null);
-  const game = {
+  return {
     id: gameId,
-    board,
+    board: Array(9).fill(null),
     players: [],
     nextTurn: "X",
     status: "waiting",
     createdAt: Date.now(),
     lastActivity: Date.now()
   };
-  games.set(gameId, game);
-  console.log(`🎮 Game CREATED: ${gameId}`);
-  return game;
 }
 
-function findWaitingGame() {
+function findWaitingGame(games) {
   for (const game of games.values()) {
     if (game.status === "waiting" && game.players.length === 1) {
-      console.log(`🔍 Found WAITING game: ${game.id}`);
       return game;
     }
   }
@@ -33,7 +26,7 @@ function formatBoardForDisplay(board) {
   return board.map((cell, index) => cell === null ? (index + 1).toString() : cell);
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -42,9 +35,10 @@ export default function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    console.log(`📥 TTT API called, total games: ${games.size}`);
+    await cleanupOldGames();
+    const games = await getAllGames();
     
-    let game = findWaitingGame();
+    let game = findWaitingGame(games);
     if (!game) {
       game = createGame();
     }
@@ -65,6 +59,7 @@ export default function handler(req, res) {
     }
 
     game.lastActivity = Date.now();
+    await saveGame(game);
 
     const response = {
       success: true,
@@ -80,7 +75,7 @@ export default function handler(req, res) {
         : "Game dimulai! Player 1 (X) jalan pertama."
     };
 
-    console.log(`✅ Game ${game.id} now has ${game.players.length} players`);
+    console.log(`✅ Game ${game.id} created with ${game.players.length} players`);
     return res.status(200).json(response);
     
   } catch (error) {
